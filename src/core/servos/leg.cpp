@@ -29,7 +29,7 @@ bool Leg::validate_foot() {
 void Leg::update() {
 	uint l_base = m_model.value + 1;
 
-	m_cp = static_cast<decimal>(l_base);
+	m_cost = static_cast<decimal>(l_base);
 	m_space = l_base;
 	m_kills = l_base;
 	m_add = static_cast<sint>( (m_model.value - 1) / 2 );
@@ -57,12 +57,12 @@ sint Leg::add() const {
 
 decimal Leg::total_cost() const {
 	return Servo::total_cost() +
-		( m_foot_ptr == nullptr ? 0 : m_foot_ptr->cp() );
+		( m_foot_ptr == nullptr ? 0 : m_foot_ptr->cost() );
 }
 
 decimal Leg::frame_weight() const {
 	return Servo::frame_weight() +
-		( m_foot_ptr == nullptr ? 0 : m_foot_ptr->cp() );
+		( m_foot_ptr == nullptr ? 0 : m_foot_ptr->cost() );
 }
 
 decimal Leg::total_weight() const {

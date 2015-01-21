@@ -15,7 +15,7 @@ public:
 	Hand(const Hand& a_hand) = default;
 	Hand& operator=(const Hand& a_hand) = default;
 	Hand(string a_description,
-		decimal a_cp,
+		decimal a_cost,
 		uint a_space,
 		uint a_damage,
 		uint a_kills,
@@ -26,8 +26,8 @@ public:
 	string description() const;
 	void description(const string& a_description);
 
-	decimal cp() const;
-	void cp(const decimal& a_cp);
+	decimal cost() const;
+	void cost(const decimal& a_cost);
 
 	uint space() const;
 	void space(const uint& a_space);
@@ -46,7 +46,7 @@ public:
 
 protected:
 	string m_description;
-	decimal m_cp;
+	decimal m_cost;
 	uint m_space;
 	uint m_damage;
 	uint m_kills;

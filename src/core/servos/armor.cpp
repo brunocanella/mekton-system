@@ -8,9 +8,9 @@ Armor::Armor( Model a_model ) : m_model(a_model) {
 
 void Armor::update()
 {
-	m_cp = static_cast<float>(m_model.value);
+	m_cost = static_cast<float>(m_model.value);
 	m_stopping_power = m_model.value;
-	m_weight = m_cp/2.f;
+	m_weight = m_cost/2.f;
 }
 
 Model Armor::model() const
@@ -24,9 +24,9 @@ void Armor::model( const Model& a_model )
 	update();
 }
 
-decimal Armor::cp() const
+decimal Armor::cost() const
 {
-    return m_cp;
+    return m_cost;
 }
 
 decimal Armor::weight() const

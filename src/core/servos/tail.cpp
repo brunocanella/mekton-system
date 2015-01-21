@@ -21,7 +21,7 @@ bool Tail::validate() {
 void Tail::update() {
 	uint l_base = m_model.value;
 
-	m_cp = static_cast<decimal>(l_base);
+	m_cost = static_cast<decimal>(l_base);
 	m_space = l_base;
 	m_kills = l_base;
 

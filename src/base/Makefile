@@ -165,7 +165,8 @@ DIST          = ../../../Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/lex.prf \
 		base.pro property.hpp \
 		typedefs.hpp \
-		ensure.hpp 
+		ensure.hpp \
+		memory_utils.hpp 
 QMAKE_TARGET  = base
 DESTDIR       = ../../bin/debug/#avoid trailing-slash linebreak
 TARGET        = libbase.a

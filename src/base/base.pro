@@ -16,7 +16,8 @@ SOURCES +=
 
 HEADERS += property.hpp \
     typedefs.hpp \
-    ensure.hpp
+    ensure.hpp \
+    memory_utils.hpp
 
 unix {
     target.path = /usr/lib

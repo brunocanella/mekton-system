@@ -4,14 +4,14 @@ namespace mekton {
 
 Hand::Hand(
 	string a_description,
-	decimal a_cp,
+	decimal a_cost,
 	uint a_space,
 	uint a_damage,
 	uint a_kills,
 	bool a_manipulation
 ) :
 	m_description(a_description),
-	m_cp(a_cp),
+	m_cost(a_cost),
 	m_space(a_space),
 	m_damage(a_damage),
 	m_kills(a_kills),
@@ -30,12 +30,12 @@ void Hand::description(const string& a_description) {
 	m_description = a_description;
 }
 
-decimal Hand::cp() const {
-	return m_cp;
+decimal Hand::cost() const {
+	return m_cost;
 }
 
-void Hand::cp(const decimal& a_cp) {
-	m_cp = a_cp;
+void Hand::cost(const decimal& a_cost) {
+	m_cost = a_cost;
 }
 
 uint Hand::space() const {

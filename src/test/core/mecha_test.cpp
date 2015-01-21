@@ -88,7 +88,7 @@ TEST_F( MechaTest, Striker ) {
 	l_servos.push_back( PtrServo( new PodServo( Model::MediumWeight, l_armor ) ) );
 
 	ASSERT_EQ( l_rapier.get_frame_weight(), 40 );
-	ASSERT_EQ( l_rapier.get_total_cp(), 86 );
+	ASSERT_EQ( l_rapier.get_total_cost(), 86 );
 
 	std::shared_ptr<Subassembly> lp_cockpit = { new Cockpit{ 1, 0, 0, 0, 1 } };
 

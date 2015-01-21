@@ -22,7 +22,7 @@ bool Arm::validate() {
 void Arm::update() {
 	uint l_base = m_model.value + 1;
 
-	m_cp = static_cast<decimal>(l_base);
+	m_cost = static_cast<decimal>(l_base);
 	m_space = l_base;
 	m_kills = l_base;
 
@@ -57,12 +57,12 @@ uint Arm::throw_dist() const {
 
 decimal Arm::total_cost() const {
 	return Servo::total_cost() +
-		( m_hand_ptr == nullptr ? 0 : m_hand_ptr->cp() );
+		( m_hand_ptr == nullptr ? 0 : m_hand_ptr->cost() );
 }
 
 decimal Arm::frame_weight() const {
 	return Servo::frame_weight() +
-		( m_hand_ptr == nullptr ? 0 : m_hand_ptr->cp() );
+		( m_hand_ptr == nullptr ? 0 : m_hand_ptr->cost() );
 }
 
 decimal Arm::total_weight() const {

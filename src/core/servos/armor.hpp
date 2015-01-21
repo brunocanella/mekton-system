@@ -18,14 +18,14 @@ public:
 	Model model() const;
 	void model( const Model& a_model );
 
-	decimal cp() const;
+	decimal cost() const;
 
 	decimal weight() const;
 
 	std::uint32_t stopping_power() const;
 protected:
 	Model m_model;
-	decimal m_cp;
+	decimal m_cost;
 	decimal m_weight;
 	std::uint32_t m_stopping_power;
 };

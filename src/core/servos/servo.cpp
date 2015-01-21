@@ -104,8 +104,8 @@ void Servo::extra_space_factor(const uint& a_extra_space_factor) {
 	update();
 }
 
-decimal Servo::cp() const {
-	return m_cp;
+decimal Servo::cost() const {
+	return m_cost;
 }
 
 decimal Servo::weight() const {
@@ -121,9 +121,9 @@ uint Servo::space() const {
 }
 
 decimal Servo::total_cost() const {
-	return m_cp
-		+ ( m_armor_ptr == nullptr ? 0 : m_armor_ptr->cp() )
-		+ m_subassemblies.total_cp();
+	return m_cost
+		+ ( m_armor_ptr == nullptr ? 0 : m_armor_ptr->cost() )
+		+ m_subassemblies.total_cost();
 }
 
 decimal Servo::frame_weight() const {

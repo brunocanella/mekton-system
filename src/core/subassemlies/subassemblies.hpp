@@ -22,7 +22,7 @@ public:
 
 	PtrSubassembly get( int a_index );
 
-	decimal total_cp() const;
+	decimal total_cost() const;
 	decimal total_weight() const;
 	uint total_space() const;
 

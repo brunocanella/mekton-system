@@ -25,7 +25,7 @@ bool Pod::validate_minimun_armor() {
 void Pod::update() {
 	uint l_base = m_model.value;
 
-	m_cp = static_cast<decimal>(l_base);
+	m_cost = static_cast<decimal>(l_base);
 	m_space = l_base * 2;
 	m_kills = 0;
 

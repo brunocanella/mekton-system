@@ -3,14 +3,14 @@
 namespace mekton {
 
 Foot::Foot(string a_description,
-	decimal a_cp,
+	decimal a_cost,
 	uint a_space,
 	uint a_damage,
 	uint a_kills,
 	sint a_ma_penalty
 ) :
 	m_description(a_description),
-	m_cp(a_cp),
+	m_cost(a_cost),
 	m_space(a_space),
 	m_damage(a_damage),
 	m_kills(a_kills),
@@ -29,12 +29,12 @@ void Foot::description(const string& a_description) {
 	m_description = a_description;
 }
 
-decimal Foot::cp() const {
-	return m_cp;
+decimal Foot::cost() const {
+	return m_cost;
 }
 
-void Foot::cp(const decimal& a_cp) {
-	m_cp = a_cp;
+void Foot::cost(const decimal& a_cost) {
+	m_cost = a_cost;
 }
 
 decimal Foot::weight() const {

@@ -60,7 +60,7 @@ public:
 	uint extra_space_factor() const;
 	void extra_space_factor(const uint& a_extra_space_factor);
 
-	decimal cp() const;
+	decimal cost() const;
 
 	decimal weight() const;
 
@@ -85,7 +85,7 @@ protected:
 	PtrArmor m_armor_ptr;
 	uint m_extra_space_factor;
 
-	decimal m_cp;
+	decimal m_cost;
 	decimal m_weight;
 	uint m_kills;
 	uint m_space;

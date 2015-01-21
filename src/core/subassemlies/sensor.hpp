@@ -13,7 +13,7 @@ public:
 		string a_name,
 		uint a_combat_range,
 		uint a_communication_range,
-		decimal a_cp,
+		decimal a_cost,
 		decimal a_weight,
 		uint a_kills,
 		uint a_space,

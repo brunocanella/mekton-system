@@ -10,14 +10,14 @@ class Servo;
 
 class Subassembly {
 public:
-	Subassembly( string a_name, decimal a_cp, decimal a_weight, uint a_kills, uint a_space, string a_description = "" );
+	Subassembly( string a_name, decimal a_cost, decimal a_weight, uint a_kills, uint a_space, string a_description = "" );
 	virtual ~Subassembly();
 
 	string name() const;
 	void name(const string& a_name);
 
-	decimal cp() const;
-	void cp(const decimal& cp);
+	decimal cost() const;
+	void cost(const decimal& cp);
 
 	decimal weight() const;
 	void weight(const decimal& weight);
@@ -33,7 +33,7 @@ public:
 
 protected:
 	string m_name;
-	decimal m_cp;
+	decimal m_cost;
 	decimal m_weight;
 	uint m_kills;
 	uint m_space;

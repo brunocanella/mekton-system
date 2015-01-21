@@ -6,12 +6,12 @@ Sensor::Sensor(
 	string a_name,
 	uint a_combat_range,
 	uint a_communication_range,
-	decimal a_cp,
+	decimal a_cost,
 	decimal a_weight,
 	uint a_kills,
 	uint a_space,
 	string a_description ) :
-	Subassembly(a_name, a_cp, a_weight, a_kills, a_space, a_description ),
+	Subassembly(a_name, a_cost, a_weight, a_kills, a_space, a_description ),
 	m_combat_range(a_combat_range),
 	m_communication_range(a_communication_range) {
 }

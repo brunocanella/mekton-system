@@ -2,8 +2,8 @@
 
 namespace mekton {
 
-Subassembly::Subassembly(string a_name, decimal a_cp, decimal a_weight, uint a_kills, uint a_space , string a_description) :
-	 m_name(a_name), m_cp(a_cp), m_weight(a_weight), m_kills(a_kills), m_space(a_space), m_description(a_description) {
+Subassembly::Subassembly(string a_name, decimal a_cost, decimal a_weight, uint a_kills, uint a_space , string a_description) :
+	 m_name(a_name), m_cost(a_cost), m_weight(a_weight), m_kills(a_kills), m_space(a_space), m_description(a_description) {
 }
 
 Subassembly::~Subassembly() {
@@ -17,12 +17,12 @@ void Subassembly::name(const string& a_name) {
 	m_name = a_name;
 }
 
-decimal Subassembly::cp() const {
-	return m_cp;
+decimal Subassembly::cost() const {
+	return m_cost;
 }
 
-void Subassembly::cp(const decimal& a_cp) {
-	m_cp = a_cp;
+void Subassembly::cost(const decimal& a_cost) {
+	m_cost = a_cost;
 }
 
 decimal Subassembly::weight() const {

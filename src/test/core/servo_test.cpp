@@ -12,7 +12,7 @@ TEST( Servo, Armor ) {
 	Armor l_armor( Models::MediumStriker );
 
 	ASSERT_EQ( l_armor.model().description, Models::MediumStriker.description );
-	ASSERT_EQ( l_armor.cp(), 4.0  );
+	ASSERT_EQ( l_armor.cost(), 4.0  );
 	ASSERT_EQ( l_armor.weight(), 2.0 );
 	ASSERT_EQ( l_armor.stopping_power(), 4 );
 }
@@ -21,7 +21,7 @@ TEST( Servo, ArmExtremity_Hand ) {
 	Hand l_hand( "Hand", 2.f, 1, 1, 1, true );
 
 	ASSERT_EQ( l_hand.description(), "Hand" );
-	ASSERT_EQ( l_hand.cp(), 2 );
+	ASSERT_EQ( l_hand.cost(), 2 );
 	ASSERT_EQ( l_hand.space(), 1 );
 	ASSERT_EQ( l_hand.damage(), 1 );
 	ASSERT_EQ( l_hand.kills(), 1 );
@@ -33,7 +33,7 @@ TEST( Servo, ArmExtremity_Pincer ) {
 	Hand l_hand = Hands::pincer;
 
 	ASSERT_EQ( l_hand.description(), "Pincer" );
-	ASSERT_EQ( l_hand.cp(), 2 );
+	ASSERT_EQ( l_hand.cost(), 2 );
 	ASSERT_EQ( l_hand.space(), 1 );
 	ASSERT_EQ( l_hand.damage(), 3 );
 	ASSERT_EQ( l_hand.kills(), 3 );
@@ -52,7 +52,7 @@ TEST( Servo, ArmServo_With_Hand ) {
 
 	ASSERT_EQ( l_arm.model().description, Models::MediumStriker.description );
 	ASSERT_EQ( l_arm.description(), "L. Arm" );
-	ASSERT_EQ( l_arm.cp(), 5.0 );
+	ASSERT_EQ( l_arm.cost(), 5.0 );
 	ASSERT_EQ( l_arm.total_cost(), 5.0 + 2.0 + 4.0 );
 	ASSERT_EQ( l_arm.space(), 5 );
 	ASSERT_EQ( l_arm.free_space(), 5 - 1 );
@@ -74,7 +74,7 @@ TEST( Servo, ArmServo_no_hand ) {
 
 	ASSERT_EQ( l_arm.model().description, Models::MediumStriker.description );
 	ASSERT_EQ( l_arm.description(), "L. Arm" );
-	ASSERT_EQ( l_arm.cp(), 5.0 );
+	ASSERT_EQ( l_arm.cost(), 5.0 );
 	ASSERT_EQ( l_arm.total_cost(), 5.0 + 4.0 );
 	ASSERT_EQ( l_arm.space(), 5 );
 	ASSERT_EQ( l_arm.free_space(), 5 );
@@ -89,7 +89,7 @@ TEST( Servo, LegExtremity_foot ) {
 	Foot l_foot( "Foot", 0.f, 0, 2, 0, 0 );
 
 	ASSERT_EQ( l_foot.description(), "Foot" );
-	ASSERT_EQ( l_foot.cp(), 0 );
+	ASSERT_EQ( l_foot.cost(), 0 );
 	ASSERT_EQ( l_foot.space(), 0 );
 	ASSERT_EQ( l_foot.damage(), 2 );
 	ASSERT_EQ( l_foot.kills(), 0 );
@@ -101,7 +101,7 @@ TEST( Servo, LegExtremity_claw ) {
 	Foot l_foot = Feet::claw;
 
 	ASSERT_EQ( l_foot.description(), "Claw" );
-	ASSERT_EQ( l_foot.cp(), 1 );
+	ASSERT_EQ( l_foot.cost(), 1 );
 	ASSERT_EQ( l_foot.space(), 0 );
 	ASSERT_EQ( l_foot.damage(), 3 );
 	ASSERT_EQ( l_foot.kills(), 1 );
@@ -120,7 +120,7 @@ TEST( Servo, LegServo_foot ) {
 
 	ASSERT_EQ( l_leg.model().description, Models::HeavyStriker.description );
 	ASSERT_EQ( l_leg.description(), "L. Leg" );
-	ASSERT_EQ( l_leg.cp(), 6.f );
+	ASSERT_EQ( l_leg.cost(), 6.f );
 	ASSERT_EQ( l_leg.total_cost(), 6.f + 4.f );
 	ASSERT_EQ( l_leg.space(), 6 );
 	ASSERT_EQ( l_leg.free_space(), 6 );
@@ -141,7 +141,7 @@ TEST( Servo, LegServo_Talon ) {
 
 	ASSERT_EQ( l_leg.model().description, Models::HeavyStriker.description );
 	ASSERT_EQ( l_leg.description(), "L. Leg" );
-	ASSERT_EQ( l_leg.cp(), 6.f );
+	ASSERT_EQ( l_leg.cost(), 6.f );
 	ASSERT_EQ( l_leg.total_cost(), 6.f + 2.f + 2.f );
 	ASSERT_EQ( l_leg.space(), 6 );
 	ASSERT_EQ( l_leg.free_space(), 6 );
@@ -157,7 +157,7 @@ TEST( Servo, Head ) {
 
 	ASSERT_EQ( l_head.description(), "Head");
 	ASSERT_EQ( l_head.extra_space_factor(), 1 );
-	ASSERT_EQ( l_head.cp(), 3.f );
+	ASSERT_EQ( l_head.cost(), 3.f );
 	ASSERT_EQ( l_head.total_cost(), 3.f + 7.f  );
 	ASSERT_EQ( l_head.space(), 5 );
 	ASSERT_EQ( l_head.free_space(), 5 );
@@ -171,7 +171,7 @@ TEST( Servo, Wing ) {
 
 	ASSERT_EQ( l_wing.description(), "Wing" );
 	ASSERT_EQ( l_wing.extra_space_factor(), 0 );
-	ASSERT_EQ( l_wing.cp(), 11.f );
+	ASSERT_EQ( l_wing.cost(), 11.f );
 	ASSERT_EQ( l_wing.total_cost(), 11.f + 9.f );
 	ASSERT_EQ( l_wing.space(), 11 );
 	ASSERT_EQ( l_wing.free_space(), 11 );
@@ -185,7 +185,7 @@ TEST( Servo, Tail ) {
 
 	ASSERT_EQ( l_tail.description(), "Tail" );
 	ASSERT_EQ( l_tail.extra_space_factor(), 2 );
-	ASSERT_EQ( l_tail.cp(), 7.f );
+	ASSERT_EQ( l_tail.cost(), 7.f );
 	ASSERT_EQ( l_tail.total_cost(), 7.f + 8.f );
 	ASSERT_EQ( l_tail.space(), 11.f );
 	ASSERT_EQ( l_tail.free_space(), 11.f );

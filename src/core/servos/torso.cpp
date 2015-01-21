@@ -66,7 +66,7 @@ bool Torso::validate() {
 void Torso::update() {
 	uint l_base = m_model.value * 2;
 
-	m_cp = static_cast<decimal>(l_base);
+	m_cost = static_cast<decimal>(l_base);
 	m_space = l_base;
 	m_kills = l_base;
 

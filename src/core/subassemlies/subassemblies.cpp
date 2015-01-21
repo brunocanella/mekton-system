@@ -48,10 +48,10 @@ PtrSubassembly Subassemblies::get(int a_index) {
 	return m_subassembly_list[a_index];
 }
 
-decimal Subassemblies::total_cp() const {
+decimal Subassemblies::total_cost() const {
 	decimal l_total_cp = 0;
 	for( auto l_subassembly_ptr : m_subassembly_list ) {
-		l_total_cp = l_subassembly_ptr->cp();
+		l_total_cp = l_subassembly_ptr->cost();
 	}
 	return l_total_cp;
 }
