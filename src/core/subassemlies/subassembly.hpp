@@ -1,12 +1,47 @@
-#ifndef SUBASSEMBLY_HPP
-#define SUBASSEMBLY_HPP
+#ifndef SUBASSEMBLY_HPP_
+#define SUBASSEMBLY_HPP_
 
+#include <memory>
+#include "typedefs.hpp"
 
-class Subassembly
-{
+namespace mekton {
+
+class Servo;
+
+class Subassembly {
 public:
-	Subassembly();
-	~Subassembly();
+	Subassembly( string a_name, decimal a_cp, decimal a_weight, uint a_kills, uint a_space, string a_description = "" );
+	virtual ~Subassembly();
+
+	string name() const;
+	void name(const string& a_name);
+
+	decimal cp() const;
+	void cp(const decimal& cp);
+
+	decimal weight() const;
+	void weight(const decimal& weight);
+
+	uint kills() const;
+	void kills(const uint& kills);
+
+	uint space() const;
+	void space(const uint& space);
+
+	string description() const;
+	void description(const string& a_description);
+
+protected:
+	string m_name;
+	decimal m_cp;
+	decimal m_weight;
+	uint m_kills;
+	uint m_space;
+	string m_description;
 };
 
-#endif // SUBASSEMBLY_HPP
+typedef std::shared_ptr<Subassembly> PtrSubassembly;
+
+}
+
+#endif // SUBASSEMBLY_HPP_

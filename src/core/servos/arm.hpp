@@ -2,33 +2,41 @@
 #define ARM_HPP_
 
 #include "servo.hpp"
+#include "extensions/hand.hpp"
 
 namespace mekton {
 
-class Arm : public Servo
-{
+class Arm : public Servo {
 public:
-	Arm( Model a_model, Armor a_armor, PtrArmExtremity ap_arm );
+	Arm( string a_description, Model a_model, PtrArmor a_armor_ptr, uint a_extra_space_factor, PtrHand a_hand_ptr );
 	virtual ~Arm();
-	void refresh();
 
-	std::uint32_t get_add() const {
-		return m_add;
-	}
+	bool validate();
 
-	std::uint32_t get_throw() const {
-		return m_throw;
-	}
+	void update();
 
-	std::shared_ptr<ArmExtremity> get_arm_extremity() const {
-		return mp_arm;
-	}
+	PtrHand hand_ptr() const;
+	void hand_ptr(const PtrHand& a_hand_ptr );
 
+	sint add() const;
+
+	uint throw_dist() const;
+
+	decimal total_cost() const;
+
+	decimal frame_weight() const;
+
+	decimal total_weight() const;
+
+	sint free_space() const;
 protected:
-	std::shared_ptr<ArmExtremity> mp_arm;
-	std::int32_t m_add;
-	std::uint32_t m_throw;
+	PtrHand m_hand_ptr;
+	sint m_add;
+	uint m_throw_dist;
+private:
 };
+
+typedef std::shared_ptr<Arm> PtrArm;
 
 } /* namespace mekton */
 

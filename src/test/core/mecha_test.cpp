@@ -1,18 +1,40 @@
-
 #include "gtest/gtest.h"
 
-#include "mecha.hpp"
-#include "servo.hpp"
-#include "subassembly.hpp"
+#include <globals.hpp>
+#include <frames/mekton.hpp>
 
 namespace {
 
 using namespace mekton;
 
-class MechaTest : public ::testing::Test {
+/**
+ * @test Test case for the Frame described on page 57 of the Mekton Zeta book.
+ */
+class MektonFrameTest : public ::testing::Test {
 public:
+	MektonFrameTest() :
+		m_frame( "Demo Frame", Models::Striker, Models::Striker ) {
+		m_frame.arm_left().hand_ptr( nullptr );
+		m_frame.arm_right().hand_ptr( nullptr );
+	}
+	~MektonFrameTest() {
+	}
+
+protected:
+	Mekton m_frame;
 };
 
+TEST_F( MektonFrameTest, FrameData ) {
+	ASSERT_EQ( m_frame.servos().size(), 6 );
+
+	ASSERT_EQ( m_frame.armor_weight(), 9.f );
+	ASSERT_EQ( m_frame.servo_weight(), 12.5f );
+
+	ASSERT_EQ( m_frame.frame_weight(), 21.5f );
+	ASSERT_EQ( m_frame.total_weight(), 21.5f );
+}
+
+/*
 TEST_F( MechaTest, Striker ) {
 	Mecha l_striker;
 
@@ -35,13 +57,13 @@ TEST_F( MechaTest, Striker ) {
 
 	ASSERT_EQ( l_striker.get_frame_weight(), 21.5f );
 }
-
+*/
 /**
  * @test Test case for the Defense Mekton "Rapier", found in page 67 of the Mekton Z book.
  *
  * @note The frame weight and cost differs from the book, since the values for the head don't match.
  */
-TEST_F( MechaTest, RapierMecha ) {
+/*TEST_F( MechaTest, RapierMecha ) {
 	Mecha l_rapier;
 
 	Armor l_armor( Model::HeavyStriker );
@@ -72,5 +94,5 @@ TEST_F( MechaTest, RapierMecha ) {
 
 	lp_torso->subassemblies().push_back( lp_cockpit );
 }
-
+*/
 }

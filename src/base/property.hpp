@@ -1,8 +1,10 @@
-#ifndef PROPERTY_HPP
-#define PROPERTY_HPP
+#ifndef PROPERTY_HPP_
+#define PROPERTY_HPP_
 
 #include <ostream>
 #include <functional>
+
+namespace mekton {
 
 template <typename T> class Property {
 public:
@@ -38,4 +40,6 @@ private:
 	T m_value;
 };
 
-#endif // PROPERTY_HPP
+} /*namespace mekton*/
+
+#endif // PROPERTY_HPP_

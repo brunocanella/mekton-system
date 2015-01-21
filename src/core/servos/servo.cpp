@@ -7,179 +7,139 @@
 
 #include "servo.hpp"
 
-namespace mekton
-{
+namespace mekton {
 
-Armor::Armor( Model a_model ) : MechaStats(), m_model(a_model) {
-	refresh();
-}
-
-Armor::~Armor() {
-}
-
-void Armor::refresh() {
-	std::uint32_t l_base = get_model_num() + 1;
-	m_cp =  l_base;
-	m_space = 0;
-	m_kills = 0;
-	m_stopping_power = l_base;
-	m_weight = static_cast<float>(l_base) / 2.f;
-}
-
-Servo::Servo( Model a_model, Armor a_armor ) : MechaStats(), m_model(a_model), m_armor(a_armor), m_extra_space_factor(0), m_subassemblies() {
+Servo::Servo( Type a_type, string a_description, Model a_model, PtrArmor a_armor_ptr, uint a_extra_space_factor ) :
+	m_subassemblies(*this),
+	m_type(a_type),
+	m_description(a_description),
+	m_model(a_model),
+	m_armor_ptr(a_armor_ptr),
+	m_extra_space_factor(a_extra_space_factor) {
 }
 
 Servo::~Servo() {
 }
 
-void Servo::assert_armor_limit() {
-	assert( ( m_armor.get_model_num() - get_model_num() ) > 2 && "Maximum armor level can't higher than two levels of the servo" );
+bool Servo::validate() {
+	return validate_armor_limit() &&
+		   validate_extra_space_factor() &&
+		   validate_free_space_positive();
 }
 
-TorsoServo::TorsoServo( Model a_model, Armor a_armor ) : Servo( a_model, a_armor ) {
-	refresh();
-}
+void Servo::update() {
+	m_weight = m_kills == 0 ? 0 : static_cast<decimal>( m_kills ) / static_cast<decimal>(2.f);
 
-TorsoServo::~TorsoServo() {
-}
-
-void TorsoServo::refresh() {
-	std::uint8_t l_factor = get_model_num() + 1;
-	m_cp = l_factor * 2;
-	m_space = l_factor * 2;
-	m_kills = l_factor * 2;
-	m_weight = l_factor;
-}
-
-ArmExtremity::ArmExtremity( std::string a_name, std::uint32_t a_damage, bool a_manipulation, std::int32_t a_weapom_accurary, float a_cp, float a_weight, std::uint32_t a_kills, std::uint32_t a_space ) :
-		MechaStats( a_cp, a_weight, a_kills, a_space ), m_name(a_name), m_damage(a_damage), m_manipulation(a_manipulation), m_weapon_accuracy(a_weapom_accurary) {
-}
-
-ArmExtremity::~ArmExtremity() {
-}
-
-void ArmExtremity::refresh() {
-}
-
-ArmServo::ArmServo( Model a_model, Armor a_armor,  PtrArmExtremity ap_arm ) : Servo( a_model, a_armor ), mp_arm( ap_arm ), m_add(0), m_throw(0) {
-	refresh();
-}
-
-ArmServo::~ArmServo() {
-}
-
-void ArmServo::refresh() {
-	if( mp_arm != nullptr ) {
-		mp_arm->refresh();
+	if( m_armor_ptr != nullptr ) {
+		m_armor_ptr->update();
 	}
 
-	std::uint32_t l_base = get_model_num();
-	m_cp =  l_base + 2;
-	m_space = l_base + 2;
-	if( mp_arm != nullptr ) {
-		m_space -= mp_arm->get_space();
+	status_invalidate();
+}
+
+bool Servo::validate_armor_limit() {
+	if( m_armor_ptr == nullptr ) {
+		return true;
 	}
-	m_kills = l_base + 2;
-	m_weight = static_cast<float>( l_base + 1 ) / 2.f;
-	if( mp_arm != nullptr ) {
-		m_weight += mp_arm->get_weight();
-	}
-	m_add = l_base / 3;
-	m_throw = 3 + static_cast<int>( l_base / 2 );
+	validation_assert(
+		( m_armor_ptr->model().value - m_model.value ) <= 2 &&
+		"Maximum armor level can't be higher than two levels of the servo"
+	);
 }
 
-LegExtremity::LegExtremity( std::string a_name, std::uint32_t a_damage, std::int32_t a_ma_penalty, float a_cp, float a_weight, std::uint32_t a_kills, std::uint32_t a_space ) :
-		MechaStats( a_cp, a_weight, a_kills, a_space ), m_name(a_name), m_damage(a_damage), m_ma_penalty(a_ma_penalty) {
+bool Servo::validate_extra_space_factor() {
+	validation_assert(
+		m_extra_space_factor < m_kills &&
+		"The extra space factor can't reduce Kills to zero or less."
+	);
 }
 
-LegExtremity::~LegExtremity() {
+bool Servo::validate_free_space_positive() {
+	validation_assert(
+		free_space() > -1 &&
+		"Total amount of space required by the subassemblies exceeds the Servo they are in"
+	);
 }
 
-void LegExtremity::refresh() {
+Subassemblies& Servo::subassemblies() {
+	return m_subassemblies;
 }
 
-LegServo::LegServo( Model a_model, Armor a_armor, std::shared_ptr<LegExtremity> ap_Leg ) : Servo( a_model, a_armor ), mp_leg( ap_Leg ), m_add(0) {
-	refresh();
+Servo::Type Servo::type() const {
+	return m_type;
 }
 
-LegServo::LegServo( Model a_model, Armor a_armor, PtrLegExtremity ap_Leg ) : LegServo( a_model, a_armor, std::shared_ptr<LegExtremity>( ap_Leg ) ) {
+Model Servo::model() const {
+	return m_model;
 }
 
-LegServo::~LegServo() {
+void Servo::model(const Model& a_model) {
+	m_model = a_model;
+	update();
 }
 
-void LegServo::refresh() {
-	assert( mp_leg != nullptr && "Foot can't be null in a leg servo." );
-	mp_leg->refresh();
-
-	std::uint32_t l_base = get_model_num();
-	m_cp =  l_base + 2;
-	m_space = l_base + 2;
-	m_kills = l_base + 2;
-	m_weight = m_cp / 2.f;
-	m_weight += mp_leg->get_weight();
-
-	m_add = l_base / 2;
+PtrArmor Servo::armor_ptr() const {
+	return m_armor_ptr;
 }
 
-HeadServo::HeadServo( Model a_model, Armor a_armor ) : Servo( a_model, a_armor ) {
-	refresh();
+void Servo::armor_ptr(const PtrArmor& a_armor_ptr) {
+	m_armor_ptr = a_armor_ptr;
+	update();
 }
 
-HeadServo::~HeadServo() {
+string Servo::description() const {
+	return m_description;
 }
 
-void HeadServo::refresh() {
-	std::uint32_t l_base = get_model_num() + 1;
-	m_cp =  l_base;
-	m_space = l_base;
-	m_kills = l_base;
-	m_weight = static_cast<float>(l_base) / 2.f;
+void Servo::description(const string& a_description) {
+	m_description = a_description;
 }
 
-WingServo::WingServo( Model a_model, Armor a_armor ) : Servo( a_model, a_armor ) {
-	refresh();
+uint Servo::extra_space_factor() const {
+	return m_extra_space_factor;
 }
 
-WingServo::~WingServo() {
+void Servo::extra_space_factor(const uint& a_extra_space_factor) {
+	m_extra_space_factor = a_extra_space_factor;
+	update();
 }
 
-void WingServo::refresh() {
-	std::uint32_t l_base = get_model_num() + 1;
-	m_cp =  l_base;
-	m_space = l_base;
-	m_kills = l_base;
-	m_weight = static_cast<float>(l_base) / 2.f;
+decimal Servo::cp() const {
+	return m_cp;
 }
 
-TailServo::TailServo( Model a_model, Armor a_armor ) : Servo( a_model, a_armor ) {
-	refresh();
+decimal Servo::weight() const {
+	return m_weight;
 }
 
-TailServo::~TailServo() {
+uint Servo::kills() const {
+	return m_kills - m_extra_space_factor;
 }
 
-void TailServo::refresh() {
-	std::uint32_t l_base = get_model_num() + 1;
-	m_cp =  l_base;
-	m_space = l_base;
-	m_kills = l_base;
-	m_weight = static_cast<float>(l_base) / 2.f;
+uint Servo::space() const {
+	return m_space + m_extra_space_factor * 2;
 }
 
-PodServo::PodServo( Model a_model, Armor a_armor ) : Servo( a_model, a_armor ) {
-	refresh();
+decimal Servo::total_cost() const {
+	return m_cp
+		+ ( m_armor_ptr == nullptr ? 0 : m_armor_ptr->cp() )
+		+ m_subassemblies.total_cp();
 }
 
-PodServo::~PodServo() {
+decimal Servo::frame_weight() const {
+	return m_weight
+		+ ( m_armor_ptr == nullptr ? 0 : m_armor_ptr->weight() );
 }
 
-void PodServo::refresh() {
-	std::uint32_t l_base = get_model_num() + 1;
-	m_cp =  l_base;
-	m_space = l_base * 2;
-	m_kills = 0;
-	m_weight = 0.0f;
+decimal Servo::total_weight() const {
+	return m_weight
+		+ ( m_armor_ptr == nullptr ? 0 : m_armor_ptr->weight() )
+		+ m_subassemblies.total_weight();
 }
 
+sint Servo::free_space() const {
+	return space()
+		- m_subassemblies.total_space();
 }
+
+} /*namespace mekton*/

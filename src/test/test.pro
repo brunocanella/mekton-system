@@ -5,10 +5,13 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    servo_test.cpp \
-    mecha_test.cpp
+    base/property_test.cpp \
+    core/servo_test.cpp \
+    core/mecha_test.cpp \
+    globals.cpp
 
-INCLUDEPATH += ../src/core
+INCLUDEPATH += ../core
+INCLUDEPATH += ../base
 
 LIBS += -pthread
 LIBS += -lgtest
@@ -20,7 +23,7 @@ CONFIG(debug, debug|release) {
     BUILD_FOLDER = release
 }
 
-LIBS += -L../$${BUILD_FOLDER} -lcore
+LIBS += -L../$${BUILD_FOLDER} -lcore -lbase
 
 DESTDIR = ./$${BUILD_FOLDER}
 OBJECTS_DIR = ../../obj/test/$${BUILD_FOLDER}
@@ -28,4 +31,7 @@ OBJECTS_DIR = ../../obj/test/$${BUILD_FOLDER}
 
 include(deployment.pri)
 qtcAddDeployment()
+
+HEADERS += \
+    globals.hpp
 

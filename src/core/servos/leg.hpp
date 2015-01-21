@@ -2,28 +2,40 @@
 #define LEG_HPP_
 
 #include "servo.hpp"
+#include "extensions/foot.hpp"
 
 namespace mekton {
 
-class Leg : public Servo
-{
+class Leg : public Servo {
 public:
-	Leg( Model a_model, Armor a_armor, PtrLegExtremity ap_Leg );
-	Leg( Model a_model, Armor a_armor, std::shared_ptr<LegExtremity> ap_Leg = cp_foot );
+	Leg( string a_description, Model a_model, PtrArmor a_armor_ptr, uint a_extra_space_factor, PtrFoot a_foot_ptr );
 	virtual ~Leg();
-	void refresh();
 
-	std::int32_t get_add() const {
-		return m_add;
-	}
+	bool validate();
 
-	std::shared_ptr<LegExtremity> get_leg_extremity() const {
-		return mp_leg;
-	}
+	void update();
+
+	PtrFoot foot_ptr() const;
+	void foot_ptr(const PtrFoot& a_foot_ptr );
+
+	sint add() const;
+
+	decimal total_cost() const;
+
+	decimal frame_weight() const;
+
+	decimal total_weight() const;
+
+	sint free_space() const;
 protected:
-	std::shared_ptr<LegExtremity> mp_leg;
-	std::int32_t m_add;
+	PtrFoot m_foot_ptr;
+	sint m_add;
+
+private:
+	bool validate_foot();
 };
+
+typedef std::shared_ptr<Leg> PtrLeg;
 
 } /* namespace mekton */
 

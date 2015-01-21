@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = 
 CFLAGS        = -pipe -g -fPIC -Wall -W -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -g -fPIC -std=c++0x -Wall -W -D_REENTRANT $(DEFINES)
-INCPATH       = -I../../../Qt/5.4/gcc_64/mkspecs/linux-g++ -I.
+INCPATH       = -I../../../Qt/5.4/gcc_64/mkspecs/linux-g++ -I. -I../base
 QMAKE         = /home/bruno/Programs/Qt/5.4/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -45,14 +45,42 @@ OBJECTS_DIR   = ../../obj/debug/
 
 ####### Files
 
-SOURCES       = mecha_stats.cpp \
-		mecha.cpp \
-		servo.cpp \
-		subassembly.cpp 
-OBJECTS       = ../../obj/debug/mecha_stats.o \
-		../../obj/debug/mecha.o \
+SOURCES       = frames/frame.cpp \
+		frames/mekton.cpp \
+		interfaces/validatable.cpp \
+		servos/extensions/foot.cpp \
+		servos/extensions/hand.cpp \
+		servos/arm.cpp \
+		servos/armor.cpp \
+		servos/head.cpp \
+		servos/leg.cpp \
+		servos/pod.cpp \
+		servos/servo.cpp \
+		servos/tail.cpp \
+		servos/torso.cpp \
+		servos/wing.cpp \
+		subassemlies/subassemblies.cpp \
+		subassemlies/subassembly.cpp \
+		frames/bodyform.cpp \
+		subassemlies/sensor.cpp 
+OBJECTS       = ../../obj/debug/frame.o \
+		../../obj/debug/mekton.o \
+		../../obj/debug/validatable.o \
+		../../obj/debug/foot.o \
+		../../obj/debug/hand.o \
+		../../obj/debug/arm.o \
+		../../obj/debug/armor.o \
+		../../obj/debug/head.o \
+		../../obj/debug/leg.o \
+		../../obj/debug/pod.o \
 		../../obj/debug/servo.o \
-		../../obj/debug/subassembly.o
+		../../obj/debug/tail.o \
+		../../obj/debug/torso.o \
+		../../obj/debug/wing.o \
+		../../obj/debug/subassemblies.o \
+		../../obj/debug/subassembly.o \
+		../../obj/debug/bodyform.o \
+		../../obj/debug/sensor.o
 DIST          = ../../../Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/common/shell-unix.conf \
 		../../../Qt/5.4/gcc_64/mkspecs/common/unix.conf \
@@ -169,13 +197,43 @@ DIST          = ../../../Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/lex.prf \
-		core.pro mecha_stats.hpp \
-		mecha.hpp \
-		servo.hpp \
-		subassembly.hpp mecha_stats.cpp \
-		mecha.cpp \
-		servo.cpp \
-		subassembly.cpp
+		core.pro frames/bodyform.hpp \
+		frames/frame.hpp \
+		frames/mekton.hpp \
+		frames/model.hpp \
+		interfaces/validatable.hpp \
+		servos/extensions/foot.hpp \
+		servos/extensions/hand.hpp \
+		servos/arm.hpp \
+		servos/armor.hpp \
+		servos/head.hpp \
+		servos/leg.hpp \
+		servos/pod.hpp \
+		servos/servo.hpp \
+		servos/servos.hpp \
+		servos/tail.hpp \
+		servos/torso.hpp \
+		servos/wing.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		subassemlies/sensor.hpp frames/frame.cpp \
+		frames/mekton.cpp \
+		interfaces/validatable.cpp \
+		servos/extensions/foot.cpp \
+		servos/extensions/hand.cpp \
+		servos/arm.cpp \
+		servos/armor.cpp \
+		servos/head.cpp \
+		servos/leg.cpp \
+		servos/pod.cpp \
+		servos/servo.cpp \
+		servos/tail.cpp \
+		servos/torso.cpp \
+		servos/wing.cpp \
+		subassemlies/subassemblies.cpp \
+		subassemlies/subassembly.cpp \
+		frames/bodyform.cpp \
+		subassemlies/sensor.cpp
 QMAKE_TARGET  = core
 DESTDIR       = ../../bin/debug/#avoid trailing-slash linebreak
 TARGET        = libcore.a
@@ -488,23 +546,171 @@ compiler_clean:
 
 ####### Compile
 
-../../obj/debug/mecha_stats.o: mecha_stats.cpp mecha_stats.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/mecha_stats.o mecha_stats.cpp
+../../obj/debug/frame.o: frames/frame.cpp frames/frame.hpp \
+		../base/typedefs.hpp \
+		frames/bodyform.hpp \
+		servos/servos.hpp \
+		servos/servo.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp \
+		servos/head.hpp \
+		servos/torso.hpp \
+		servos/arm.hpp \
+		servos/extensions/hand.hpp \
+		servos/leg.hpp \
+		servos/extensions/foot.hpp \
+		servos/tail.hpp \
+		servos/wing.hpp \
+		servos/pod.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/frame.o frames/frame.cpp
 
-../../obj/debug/mecha.o: mecha.cpp mecha.hpp \
-		servo.hpp \
-		mecha_stats.hpp \
-		subassembly.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/mecha.o mecha.cpp
+../../obj/debug/mekton.o: frames/mekton.cpp frames/mekton.hpp \
+		frames/frame.hpp \
+		../base/typedefs.hpp \
+		frames/bodyform.hpp \
+		servos/servos.hpp \
+		servos/servo.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp \
+		servos/head.hpp \
+		servos/torso.hpp \
+		servos/arm.hpp \
+		servos/extensions/hand.hpp \
+		servos/leg.hpp \
+		servos/extensions/foot.hpp \
+		servos/tail.hpp \
+		servos/wing.hpp \
+		servos/pod.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/mekton.o frames/mekton.cpp
 
-../../obj/debug/servo.o: servo.cpp servo.hpp \
-		mecha_stats.hpp \
-		subassembly.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/servo.o servo.cpp
+../../obj/debug/validatable.o: interfaces/validatable.cpp interfaces/validatable.hpp \
+		../base/typedefs.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/validatable.o interfaces/validatable.cpp
 
-../../obj/debug/subassembly.o: subassembly.cpp subassembly.hpp \
-		mecha_stats.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/subassembly.o subassembly.cpp
+../../obj/debug/foot.o: servos/extensions/foot.cpp servos/extensions/foot.hpp \
+		../base/typedefs.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/foot.o servos/extensions/foot.cpp
+
+../../obj/debug/hand.o: servos/extensions/hand.cpp servos/extensions/hand.hpp \
+		../base/typedefs.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/hand.o servos/extensions/hand.cpp
+
+../../obj/debug/arm.o: servos/arm.cpp servos/arm.hpp \
+		servos/servo.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp \
+		servos/extensions/hand.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/arm.o servos/arm.cpp
+
+../../obj/debug/armor.o: servos/armor.cpp servos/armor.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		frames/model.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/armor.o servos/armor.cpp
+
+../../obj/debug/head.o: servos/head.cpp servos/head.hpp \
+		servos/servo.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/head.o servos/head.cpp
+
+../../obj/debug/leg.o: servos/leg.cpp servos/leg.hpp \
+		servos/servo.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp \
+		servos/extensions/foot.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/leg.o servos/leg.cpp
+
+../../obj/debug/pod.o: servos/pod.cpp servos/pod.hpp \
+		servos/servo.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/pod.o servos/pod.cpp
+
+../../obj/debug/servo.o: servos/servo.cpp servos/servo.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/servo.o servos/servo.cpp
+
+../../obj/debug/tail.o: servos/tail.cpp servos/tail.hpp \
+		servos/servo.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/tail.o servos/tail.cpp
+
+../../obj/debug/torso.o: servos/torso.cpp servos/torso.hpp \
+		servos/servo.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp \
+		../base/ensure.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/torso.o servos/torso.cpp
+
+../../obj/debug/wing.o: servos/wing.cpp servos/wing.hpp \
+		servos/servo.hpp \
+		../base/typedefs.hpp \
+		interfaces/validatable.hpp \
+		subassemlies/subassemblies.hpp \
+		subassemlies/subassembly.hpp \
+		servos/armor.hpp \
+		frames/model.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/wing.o servos/wing.cpp
+
+../../obj/debug/subassemblies.o: subassemlies/subassemblies.cpp subassemlies/subassemblies.hpp \
+		../base/typedefs.hpp \
+		subassemlies/subassembly.hpp \
+		../base/ensure.hpp \
+		servos/servo.hpp \
+		interfaces/validatable.hpp \
+		servos/armor.hpp \
+		frames/model.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/subassemblies.o subassemlies/subassemblies.cpp
+
+../../obj/debug/subassembly.o: subassemlies/subassembly.cpp subassemlies/subassembly.hpp \
+		../base/typedefs.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/subassembly.o subassemlies/subassembly.cpp
+
+../../obj/debug/bodyform.o: frames/bodyform.cpp frames/bodyform.hpp \
+		../base/typedefs.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/bodyform.o frames/bodyform.cpp
+
+../../obj/debug/sensor.o: subassemlies/sensor.cpp subassemlies/sensor.hpp \
+		../base/typedefs.hpp \
+		subassemlies/subassembly.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/sensor.o subassemlies/sensor.cpp
 
 ####### Install
 

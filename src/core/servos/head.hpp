@@ -8,10 +8,15 @@ namespace mekton {
 class Head : public Servo
 {
 public:
-	Head( Model a_model, Armor a_armor );
+	Head( string a_description, Model a_model, PtrArmor a_armor_ptr, uint a_extra_space_factor );
 	virtual ~Head();
-	void refresh();
+
+	bool validate();
+
+	void update();
 };
+
+typedef std::shared_ptr<Head> PtrHead;
 
 } /* namespace mekton */
 

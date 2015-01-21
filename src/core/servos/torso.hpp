@@ -5,13 +5,27 @@
 
 namespace mekton {
 
-class Torso : public Servo
-{
+class Torso : public Servo {
 public:
-	Torso( Model a_model, Armor a_armor );
+	Torso(
+		string a_description,
+		Model a_model,
+		PtrArmor a_armor_ptr,
+		uint a_extra_space_factor,
+		std::vector<Servo*> a_attached_servos );
 	virtual ~Torso();
-	virtual void refresh();
+
+	bool validate();
+
+	void update();
+
+	std::vector<Servo*>& attached_servos();
+
+private:
+	std::vector<Servo*> m_attached_servos;
 };
+
+typedef std::shared_ptr<Torso> PtrTorso;
 
 } /* namespace mekton */
 

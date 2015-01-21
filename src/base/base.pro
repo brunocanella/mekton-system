@@ -14,7 +14,9 @@ CONFIG += c++11
 
 SOURCES +=
 
-HEADERS += property.hpp
+HEADERS += property.hpp \
+    typedefs.hpp \
+    ensure.hpp
 
 unix {
     target.path = /usr/lib

@@ -1,75 +1,62 @@
-#ifndef HAND_HPP
-#define HAND_HPP
+#ifndef FOOT_HPP_
+#define FOOT_HPP_
 
-#include <cstdint>
-#include <string>
 #include <typedefs.hpp>
 #include <memory>
 #include <vector>
 
 namespace mekton {
 
-class Hand
+class Foot
 {
 public:
-	Hand(
-		std::string a_description,
+	Foot(const Foot& a_foot) = default;
+	Foot& operator=(const Foot& a_foot) = default;
+	Foot(
+		string a_description,
 		decimal a_cp,
-		decimal a_weight,
-		std::uint32_t a_space,
-		std::uint32_t a_damage,
-		std::uint32_t a_kills,
-		bool a_manipulation
+		uint a_space,
+		uint a_damage,
+		uint a_kills,
+		sint a_ma_penalty
 	);
-	~Hand();
+	~Foot();
 
-	std::string description() const;
-	void description(const std::string& a_description);
+	string description() const;
+	void description(const string& a_description);
 
 	decimal cp() const;
 	void cp(const decimal& a_cp);
 
+	uint space() const;
+	void space(const uint& a_space);
+
+	uint damage() const;
+	void damage(const uint& a_damage);
+
+	uint kills() const;
+	void kills(const uint& a_kills);
+
 	decimal weight() const;
 	void weight(const decimal& a_weight);
 
-	std::uint32_t space() const;
-	void space(const std::uint32_t& a_space);
-
-	std::uint32_t damage() const;
-	void damage(const std::uint32_t& a_damage);
-
-	std::uint32_t kills() const;
-	void kills(const std::uint32_t& a_kills);
-
-	bool manipulation() const;
-	void manipulation(bool a_manipulation);
+	sint ma_penalty() const;
+	void ma_penalty(sint a_ma_penalty);
 
 protected:
-	std::string m_description;
+	string m_description;
 	decimal m_cp;
+	uint m_space;
+	uint m_damage;
+	uint m_kills;
 	decimal m_weight;
-	std::uint32_t m_space;
-	std::uint32_t m_damage;
-	std::uint32_t m_kills;
-	bool m_manipulation;
+	sint m_ma_penalty;
 };
 
-typedef std::shared_ptr<Hand> PtrHand;
+typedef std::shared_ptr<Foot> PtrFoot;
 
-// ToDo: Move this to a test unit; Make it load from a database
-const std::vector<Hand> g_hands = {
-	{ "Hand"  , 2.f, 0.5f, 1, 1, 1, true  },
-	{ "Claw"  , 4.f, 1.0f, 1, 2, 2, true  },
-	{ "Talon" , 1.f, 1.0f, 1, 2, 2, false },
-	{ "Pincer", 2.f, 1.5f, 1, 3, 3, false }
-};
-
-// ToDo: Move this to a test unit; Make it load from a database
-const Hand & g_hand = g_hands[0];
-const Hand & g_claw = g_hands[1];
-const Hand & g_talon = g_hands[2];
-const Hand & g_pincer = g_hands[3];
+const Foot c_foot_normal = { "Foot", 0.f, 0, 2, 0, 0 };
 
 } /*namespace mekton*/
 
-#endif // HAND_HPP
+#endif // FOOT_HPP_

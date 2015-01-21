@@ -8,10 +8,17 @@ namespace mekton {
 class Pod : public Servo
 {
 public:
-	Pod( Model a_model, Armor a_armor );
+	Pod( string a_description, Model a_model, PtrArmor a_armor_ptr, uint a_extra_space_factor );
 	virtual ~Pod();
-	void refresh();
+
+	bool validate();
+
+	void update();
+protected:
+	bool validate_minimun_armor();
 };
+
+typedef std::shared_ptr<Pod> PtrPod;
 
 } /* namespace mekton */
 

@@ -8,10 +8,15 @@ namespace mekton {
 class Wing : public Servo
 {
 public:
-	Wing( Model a_model, Armor a_armor );
+	Wing( string a_description, Model a_model, PtrArmor a_armor_ptr, uint a_extra_space_factor );
 	virtual ~Wing();
-	void refresh();
+
+	bool validate();
+
+	void update();
 };
+
+typedef std::shared_ptr<Wing> PtrWing;
 
 } /* namespace mekton */
 
