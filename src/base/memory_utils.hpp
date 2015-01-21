@@ -1,0 +1,5 @@
+#ifndef MEMORY_UTILS_HPP
+#define MEMORY_UTILS_HPP
+
+#endif // MEMORY_UTILS_HPP
+
