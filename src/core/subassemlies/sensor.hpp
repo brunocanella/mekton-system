@@ -1,5 +1,5 @@
-#ifndef SENSOR_HPP
-#define SENSOR_HPP
+#ifndef SENSOR_HPP_
+#define SENSOR_HPP_
 
 #include <typedefs.hpp>
 #include "subassembly.hpp"
@@ -18,7 +18,7 @@ public:
 		uint a_kills,
 		uint a_space,
 		string a_description = "" );
-	virtual ~Sensor();
+	virtual ~Sensor() = default;
 
 	uint combat_range() const;
 	void combat_range(const uint& a_combat_range);
@@ -33,4 +33,4 @@ protected:
 
 } /*namespace mekton*/
 
-#endif // SENSOR_HPP
+#endif // SENSOR_HPP_

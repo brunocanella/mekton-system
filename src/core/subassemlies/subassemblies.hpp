@@ -5,9 +5,9 @@
 #include <typedefs.hpp>
 #include "subassembly.hpp"
 
-class Servo;
-
 namespace mekton {
+
+class Servo;
 
 class Subassemblies {
 public:

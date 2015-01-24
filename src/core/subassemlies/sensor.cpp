@@ -11,12 +11,9 @@ Sensor::Sensor(
 	uint a_kills,
 	uint a_space,
 	string a_description ) :
-	Subassembly(a_name, a_cost, a_weight, a_kills, a_space, a_description ),
+	Subassembly( a_name, a_cost, a_weight, a_kills, a_space, a_description ),
 	m_combat_range(a_combat_range),
 	m_communication_range(a_communication_range) {
-}
-
-Sensor::~Sensor() {
 }
 
 uint Sensor::combat_range() const {

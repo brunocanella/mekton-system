@@ -3,10 +3,7 @@
 namespace mekton {
 
 Subassembly::Subassembly(string a_name, decimal a_cost, decimal a_weight, uint a_kills, uint a_space , string a_description) :
-	 m_name(a_name), m_cost(a_cost), m_weight(a_weight), m_kills(a_kills), m_space(a_space), m_description(a_description) {
-}
-
-Subassembly::~Subassembly() {
+	 m_name(a_name), m_description(a_description), m_cost(a_cost), m_weight(a_weight), m_kills(a_kills), m_space(a_space) {
 }
 
 string Subassembly::name() const {
@@ -15,6 +12,14 @@ string Subassembly::name() const {
 
 void Subassembly::name(const string& a_name) {
 	m_name = a_name;
+}
+
+string Subassembly::description() const {
+	return m_description;
+}
+
+void Subassembly::description(const string& a_description) {
+	m_description = a_description;
 }
 
 decimal Subassembly::cost() const {
@@ -47,14 +52,6 @@ uint Subassembly::space() const {
 
 void Subassembly::space(const uint& a_space) {
 	m_space = a_space;
-}
-
-string Subassembly::description() const {
-	return m_description;
-}
-
-void Subassembly::description(const string& a_description) {
-	m_description = a_description;
 }
 
 } /*namespace mekton*/
