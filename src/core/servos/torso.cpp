@@ -2,7 +2,7 @@
 
 #include <sstream>
 #include <stdexcept>
-#include <ensure.hpp>
+#include <messages/ensure.hpp>
 
 namespace mekton {
 

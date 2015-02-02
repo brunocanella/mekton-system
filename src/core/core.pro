@@ -4,11 +4,12 @@
 #
 #-------------------------------------------------
 
-QT -= core gui
+#QT -= core gui
 
 TARGET = core
 TEMPLATE = lib
 
+CONFIG -= qt
 CONFIG += staticlib
 CONFIG += c++11
 

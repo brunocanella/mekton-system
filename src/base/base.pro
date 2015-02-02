@@ -4,11 +4,12 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+#QT       -= core gui
 
 TARGET = base
 TEMPLATE = lib
 
+CONFIG -= qt
 CONFIG += staticlib
 CONFIG += c++11
 
@@ -16,8 +17,9 @@ SOURCES +=
 
 HEADERS += property.hpp \
     typedefs.hpp \
-    ensure.hpp \
-    memory_utils.hpp
+    memory_utils.hpp \
+    messages/warning.hpp \
+    messages/ensure.hpp
 
 unix {
     target.path = /usr/lib

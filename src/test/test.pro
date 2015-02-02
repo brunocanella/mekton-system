@@ -23,11 +23,10 @@ CONFIG(debug, debug|release) {
     BUILD_FOLDER = release
 }
 
-LIBS += -L../$${BUILD_FOLDER} -lcore -lbase
+LIBS += -L../../bin/$${BUILD_FOLDER} -lcore -lbase
 
-DESTDIR = ./$${BUILD_FOLDER}
+DESTDIR = ../../bin/test/$${BUILD_FOLDER}
 OBJECTS_DIR = ../../obj/test/$${BUILD_FOLDER}
-
 
 include(deployment.pri)
 qtcAddDeployment()

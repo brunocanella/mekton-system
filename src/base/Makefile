@@ -13,8 +13,8 @@ MAKEFILE      = Makefile
 CC            = gcc
 CXX           = g++
 DEFINES       = 
-CFLAGS        = -pipe -g -fPIC -Wall -W -D_REENTRANT $(DEFINES)
-CXXFLAGS      = -pipe -g -fPIC -std=c++0x -Wall -W -D_REENTRANT $(DEFINES)
+CFLAGS        = -pipe -g -fPIC -Wall -W $(DEFINES)
+CXXFLAGS      = -pipe -g -fPIC -std=c++0x -Wall -W $(DEFINES)
 INCPATH       = -I../../../Qt/5.4/gcc_64/mkspecs/linux-g++ -I.
 QMAKE         = /home/bruno/Programs/Qt/5.4/gcc_64/bin/qmake
 DEL_FILE      = rm -f
@@ -157,16 +157,15 @@ DIST          = ../../../Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/default_post.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/c++11.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/warn_on.prf \
-		../../../Qt/5.4/gcc_64/mkspecs/features/qt.prf \
-		../../../Qt/5.4/gcc_64/mkspecs/features/unix/thread.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/testcase_targets.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/lex.prf \
 		base.pro property.hpp \
 		typedefs.hpp \
-		ensure.hpp \
-		memory_utils.hpp 
+		memory_utils.hpp \
+		messages/warning.hpp \
+		messages/ensure.hpp 
 QMAKE_TARGET  = base
 DESTDIR       = ../../bin/debug/#avoid trailing-slash linebreak
 TARGET        = libbase.a
@@ -314,8 +313,6 @@ Makefile: base.pro ../../../Qt/5.4/gcc_64/mkspecs/linux-g++/qmake.conf ../../../
 		../../../Qt/5.4/gcc_64/mkspecs/features/default_post.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/c++11.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/warn_on.prf \
-		../../../Qt/5.4/gcc_64/mkspecs/features/qt.prf \
-		../../../Qt/5.4/gcc_64/mkspecs/features/unix/thread.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/testcase_targets.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/features/yacc.prf \
@@ -432,8 +429,6 @@ Makefile: base.pro ../../../Qt/5.4/gcc_64/mkspecs/linux-g++/qmake.conf ../../../
 ../../../Qt/5.4/gcc_64/mkspecs/features/default_post.prf:
 ../../../Qt/5.4/gcc_64/mkspecs/features/c++11.prf:
 ../../../Qt/5.4/gcc_64/mkspecs/features/warn_on.prf:
-../../../Qt/5.4/gcc_64/mkspecs/features/qt.prf:
-../../../Qt/5.4/gcc_64/mkspecs/features/unix/thread.prf:
 ../../../Qt/5.4/gcc_64/mkspecs/features/testcase_targets.prf:
 ../../../Qt/5.4/gcc_64/mkspecs/features/exceptions.prf:
 ../../../Qt/5.4/gcc_64/mkspecs/features/yacc.prf:

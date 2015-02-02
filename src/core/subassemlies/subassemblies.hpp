@@ -1,26 +1,31 @@
 #ifndef SUBASSEMBLIES_HPP_
 #define SUBASSEMBLIES_HPP_
 
-#include <vector>
 #include <typedefs.hpp>
+
+#include <map>
+
 #include "subassembly.hpp"
 
 namespace mekton {
 
 class Servo;
 
-class Subassemblies {
+typedef std::map<Subassembly*, int> SubassembliesBase;
+
+class Subassemblies : SubassembliesBase {
 public:
-	Subassemblies(const Servo& a_owner );
-	~Subassemblies();
+	using SubassembliesBase::begin;
+	using SubassembliesBase::end;
+	using SubassembliesBase::size;
+	using SubassembliesBase::operator [];
 
-	void add( PtrSubassembly a_item );
-	void remove( uint a_index );
-	void remove( PtrSubassembly a_item );
+	Subassemblies(Servo& a_owner );
+	virtual ~Subassemblies();
 
-	size_t count();
-
-	PtrSubassembly get( int a_index );
+	void alloc( Subassembly* a_ptr );
+	void alloc( Subassembly* a_ptr, uint a_value );
+	void dealloc( Subassembly* a_ptr );
 
 	decimal total_cost() const;
 	decimal total_weight() const;
@@ -28,8 +33,7 @@ public:
 
 	const Servo& owner() const;
 protected:
-	const Servo& m_owner;
-	std::vector<PtrSubassembly> m_subassembly_list;
+	Servo& m_owner;
 };
 
 } /*namespace mekton*/
