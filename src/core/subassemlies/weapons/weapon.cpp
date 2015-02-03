@@ -2,33 +2,21 @@
 
 namespace mekton {
 
-/*
-Weapon::Weapon(WeaponType a_type,
-	string a_name,
-		uint a_range,
-		sint a_weapon_accuracy,
-		sint a_defense_accuracy,
-		sint a_damage,
-		sint a_shots,
-		sint a_burst_value,
-		sint a_stopping_power,
-		decimal a_cost,
-		decimal a_weight,
-		uint a_kills,
-		uint a_space,
-		string a_description
-) :
-	Subassembly( a_name, a_cost, a_weight, a_kills, a_space, a_description ),
-		m_type(a_type),
-		m_range(a_range),
-		m_weapon_accuracy(a_weapon_accuracy),
-		m_defense_accuracy(a_defense_accuracy),
-		m_damage(a_damage),
-		m_shots(a_shots),
-		m_burst_value(a_burst_value),
-		m_stopping_power(a_stopping_power) {
+Weapon::Weapon(
+	uint a_damage,
+	RangeModifier a_range_mod,
+	AccuracyModifier a_accuracy_mod,
+	WeaponModifiers a_modifiers,
+	WeaponFlags a_flags) :
+	m_range_mod( a_range_mod ),
+	m_accuracy_mod( a_accuracy_mod ),
+	m_damage( a_damage ),
+	m_modifiers(a_modifiers),
+	m_flags(a_flags) {
+
+	m_modifiers.insert( m_range_mod );
+	m_modifiers.insert( m_accuracy_mod );
 }
-*/
 
 WeaponType Weapon::type() const {
 	return m_type;
@@ -38,11 +26,11 @@ void Weapon::type(const WeaponType& a_type) {
 	m_type = a_type;
 }
 
-sint Weapon::damage() const {
+uint Weapon::damage() const {
 	return m_damage;
 }
 
-void Weapon::damage(const sint& a_damage) {
+void Weapon::damage(const uint& a_damage) {
 	m_damage = a_damage;
 }
 
@@ -62,12 +50,12 @@ void Weapon::accuracy(const sint& a_accuracy) {
 	m_accuracy = a_accuracy;
 }
 
-sint Weapon::shots() const {
-	return m_shots;
+WeaponModifiers& Weapon::modifiers() {
+	return m_modifiers;
 }
 
-void Weapon::shots(const sint& a_shots) {
-	m_shots = a_shots;
+WeaponFlags& Weapon::flags() {
+	return m_flags;
 }
 
 } /*namespace mekton*/

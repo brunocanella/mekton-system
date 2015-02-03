@@ -8,4 +8,8 @@ WeaponFlag::WeaponFlag(decimal a_cost_multiplier, string a_name, string a_descri
 	description(a_description) {
 }
 
+bool WeaponFlag::operator <(const WeaponFlag& a_rhs) const {
+	return this < &a_rhs;
+}
+
 } /*namespace mekton*/

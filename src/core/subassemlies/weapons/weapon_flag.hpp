@@ -3,6 +3,8 @@
 
 #include <typedefs.hpp>
 
+#include <set>
+
 namespace mekton {
 
 class WeaponFlag {
@@ -13,7 +15,11 @@ public:
 	decimal cost_multiplier;
 	string name;
 	string description;
+
+	bool operator <(const WeaponFlag& a_rhs) const;
 };
+
+typedef std::set<WeaponFlag> WeaponFlags;
 
 /*
 class Weapon {

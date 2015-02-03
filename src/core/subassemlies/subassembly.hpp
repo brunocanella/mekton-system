@@ -13,6 +13,7 @@ class Servo;
 
 class Subassembly {
 public:
+	Subassembly() = default;
 	Subassembly( string a_name, decimal a_cost, decimal a_weight, uint a_kills, uint a_space, string a_description = "" );
 	Subassembly( string a_name, decimal a_cost, decimal a_weight, uint a_kills, uint a_space, uint a_space_to_alloc, string a_description = "" );
 	virtual ~Subassembly();

@@ -18,6 +18,7 @@ INCLUDEPATH += ../base
 LIBS += -lbase
 
 SOURCES += \
+    frames/bodyform.cpp \
     frames/frame.cpp \
     frames/mekton.cpp \
     interfaces/validatable.cpp \
@@ -34,8 +35,12 @@ SOURCES += \
     servos/wing.cpp \
     subassemlies/subassemblies.cpp \
     subassemlies/subassembly.cpp \
-    frames/bodyform.cpp \
-    subassemlies/sensor.cpp
+    subassemlies/sensor.cpp \
+    subassemlies/weapons/weapon.cpp \
+    subassemlies/weapons/weapon_type.cpp \
+    subassemlies/weapons/weapon_modifier.cpp \
+    subassemlies/weapons/weapon_flag.cpp \
+    subassemlies/weapons/beam.cpp
 
 HEADERS += \
     frames/bodyform.hpp \
@@ -57,7 +62,12 @@ HEADERS += \
     servos/wing.hpp \
     subassemlies/subassemblies.hpp \
     subassemlies/subassembly.hpp \
-    subassemlies/sensor.hpp
+    subassemlies/sensor.hpp \
+    subassemlies/weapons/weapon.hpp \
+    subassemlies/weapons/weapon_type.hpp \
+    subassemlies/weapons/weapon_modifier.hpp \
+    subassemlies/weapons/weapon_flag.hpp \
+    subassemlies/weapons/beam.hpp
 
 unix {
     target.path = /usr/lib

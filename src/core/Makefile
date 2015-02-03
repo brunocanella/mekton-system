@@ -45,7 +45,8 @@ OBJECTS_DIR   = ../../obj/debug/
 
 ####### Files
 
-SOURCES       = frames/frame.cpp \
+SOURCES       = frames/bodyform.cpp \
+		frames/frame.cpp \
 		frames/mekton.cpp \
 		interfaces/validatable.cpp \
 		servos/extensions/foot.cpp \
@@ -61,9 +62,14 @@ SOURCES       = frames/frame.cpp \
 		servos/wing.cpp \
 		subassemlies/subassemblies.cpp \
 		subassemlies/subassembly.cpp \
-		frames/bodyform.cpp \
-		subassemlies/sensor.cpp 
-OBJECTS       = ../../obj/debug/frame.o \
+		subassemlies/sensor.cpp \
+		subassemlies/weapons/weapon.cpp \
+		subassemlies/weapons/weapon_type.cpp \
+		subassemlies/weapons/weapon_modifier.cpp \
+		subassemlies/weapons/weapon_flag.cpp \
+		subassemlies/weapons/beam.cpp 
+OBJECTS       = ../../obj/debug/bodyform.o \
+		../../obj/debug/frame.o \
 		../../obj/debug/mekton.o \
 		../../obj/debug/validatable.o \
 		../../obj/debug/foot.o \
@@ -79,8 +85,12 @@ OBJECTS       = ../../obj/debug/frame.o \
 		../../obj/debug/wing.o \
 		../../obj/debug/subassemblies.o \
 		../../obj/debug/subassembly.o \
-		../../obj/debug/bodyform.o \
-		../../obj/debug/sensor.o
+		../../obj/debug/sensor.o \
+		../../obj/debug/weapon.o \
+		../../obj/debug/weapon_type.o \
+		../../obj/debug/weapon_modifier.o \
+		../../obj/debug/weapon_flag.o \
+		../../obj/debug/beam.o
 DIST          = ../../../Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.4/gcc_64/mkspecs/common/shell-unix.conf \
 		../../../Qt/5.4/gcc_64/mkspecs/common/unix.conf \
@@ -214,7 +224,13 @@ DIST          = ../../../Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		servos/wing.hpp \
 		subassemlies/subassemblies.hpp \
 		subassemlies/subassembly.hpp \
-		subassemlies/sensor.hpp frames/frame.cpp \
+		subassemlies/sensor.hpp \
+		subassemlies/weapons/weapon.hpp \
+		subassemlies/weapons/weapon_type.hpp \
+		subassemlies/weapons/weapon_modifier.hpp \
+		subassemlies/weapons/weapon_flag.hpp \
+		subassemlies/weapons/beam.hpp frames/bodyform.cpp \
+		frames/frame.cpp \
 		frames/mekton.cpp \
 		interfaces/validatable.cpp \
 		servos/extensions/foot.cpp \
@@ -230,8 +246,12 @@ DIST          = ../../../Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		servos/wing.cpp \
 		subassemlies/subassemblies.cpp \
 		subassemlies/subassembly.cpp \
-		frames/bodyform.cpp \
-		subassemlies/sensor.cpp
+		subassemlies/sensor.cpp \
+		subassemlies/weapons/weapon.cpp \
+		subassemlies/weapons/weapon_type.cpp \
+		subassemlies/weapons/weapon_modifier.cpp \
+		subassemlies/weapons/weapon_flag.cpp \
+		subassemlies/weapons/beam.cpp
 QMAKE_TARGET  = core
 DESTDIR       = ../../bin/debug/#avoid trailing-slash linebreak
 TARGET        = libcore.a
@@ -540,6 +560,10 @@ compiler_clean:
 
 ####### Compile
 
+../../obj/debug/bodyform.o: frames/bodyform.cpp frames/bodyform.hpp \
+		../base/typedefs.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/bodyform.o frames/bodyform.cpp
+
 ../../obj/debug/frame.o: frames/frame.cpp frames/frame.hpp \
 		../base/typedefs.hpp \
 		frames/bodyform.hpp \
@@ -702,14 +726,43 @@ compiler_clean:
 		frames/model.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/subassembly.o subassemlies/subassembly.cpp
 
-../../obj/debug/bodyform.o: frames/bodyform.cpp frames/bodyform.hpp \
-		../base/typedefs.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/bodyform.o frames/bodyform.cpp
-
 ../../obj/debug/sensor.o: subassemlies/sensor.cpp subassemlies/sensor.hpp \
 		../base/typedefs.hpp \
 		subassemlies/subassembly.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/sensor.o subassemlies/sensor.cpp
+
+../../obj/debug/weapon.o: subassemlies/weapons/weapon.cpp subassemlies/weapons/weapon.hpp \
+		subassemlies/subassembly.hpp \
+		../base/typedefs.hpp \
+		subassemlies/weapons/weapon_type.hpp \
+		subassemlies/weapons/weapon_modifier.hpp \
+		subassemlies/weapons/weapon_flag.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/weapon.o subassemlies/weapons/weapon.cpp
+
+../../obj/debug/weapon_type.o: subassemlies/weapons/weapon_type.cpp subassemlies/weapons/weapon_type.hpp \
+		../base/typedefs.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/weapon_type.o subassemlies/weapons/weapon_type.cpp
+
+../../obj/debug/weapon_modifier.o: subassemlies/weapons/weapon_modifier.cpp subassemlies/weapons/weapon_modifier.hpp \
+		../base/typedefs.hpp \
+		subassemlies/weapons/weapon.hpp \
+		subassemlies/subassembly.hpp \
+		subassemlies/weapons/weapon_type.hpp \
+		subassemlies/weapons/weapon_flag.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/weapon_modifier.o subassemlies/weapons/weapon_modifier.cpp
+
+../../obj/debug/weapon_flag.o: subassemlies/weapons/weapon_flag.cpp subassemlies/weapons/weapon_flag.hpp \
+		../base/typedefs.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/weapon_flag.o subassemlies/weapons/weapon_flag.cpp
+
+../../obj/debug/beam.o: subassemlies/weapons/beam.cpp subassemlies/weapons/beam.hpp \
+		subassemlies/weapons/weapon.hpp \
+		subassemlies/subassembly.hpp \
+		../base/typedefs.hpp \
+		subassemlies/weapons/weapon_type.hpp \
+		subassemlies/weapons/weapon_modifier.hpp \
+		subassemlies/weapons/weapon_flag.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../../obj/debug/beam.o subassemlies/weapons/beam.cpp
 
 ####### Install
 
